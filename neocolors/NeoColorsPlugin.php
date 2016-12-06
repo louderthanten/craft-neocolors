@@ -1,10 +1,10 @@
 <?php
 namespace Craft;
 
-class MatrixColorsPlugin extends BasePlugin
+class NeoColorsPlugin extends BasePlugin
 {
 
-	private $_matrixBlockColors;
+	private $_neoBlockColors;
 
 	public function init()
 	{
@@ -16,17 +16,17 @@ class MatrixColorsPlugin extends BasePlugin
 
 	public function getName()
 	{
-		return Craft::t('Matrix Colors');
+		return Craft::t('Neo Colors');
 	}
 
 	public function getDescription()
 	{
-		return 'Identify your matrix blocks by giving each type a different color.';
+		return 'Identify your Neo blocks by giving each type a different color.';
 	}
 
 	public function getDocumentationUrl()
 	{
-		return 'https://github.com/lindseydiloreto/craft-matrixcolors';
+		return 'https://github.com/louderthanten/craft-neocolors';
 	}
 
 	public function getVersion()
@@ -41,35 +41,35 @@ class MatrixColorsPlugin extends BasePlugin
 
 	public function getDeveloper()
 	{
-		return 'Double Secret Agency';
+		return 'Louder Than Ten';
 	}
 
 	public function getDeveloperUrl()
 	{
-		return 'https://github.com/lindseydiloreto/craft-matrixcolors';
-		//return 'http://doublesecretagency.com';
+		return 'https://github.com/louderthanten/craft-neocolors';
+		//return 'http://louderthanten.com';
 	}
 
 	protected function defineSettings()
 	{
 		return array(
-			'matrixBlockColors' => array(AttributeType::Mixed, 'label' => 'Matrix Block Colors', 'default' => array()),
+			'NeoBlockColors' => array(AttributeType::Mixed, 'label' => 'Neo Block Colors', 'default' => array()),
 		);
 	}
 
 	public function getSettingsHtml()
 	{
 		// If not set, create a default row
-		if (!$this->_matrixBlockColors) {
-			$this->_matrixBlockColors = array(array('blockType' => '', 'backgroundColor' => ''));
+		if (!$this->_neoBlockColors) {
+			$this->_neoBlockColors = array(array('blockType' => '', 'backgroundColor' => ''));
 		}
 		// Generate table
-		$matrixBlockColorsTable = craft()->templates->renderMacro('_includes/forms', 'editableTableField', array(
+		$NeoBlockColorsTable = craft()->templates->renderMacro('_includes/forms', 'editableTableField', array(
 			array(
 				'label'        => Craft::t('Block Type Colors'),
-				'instructions' => Craft::t('Add background colors to your matrix block types'),
-				'id'           => 'matrixBlockColors',
-				'name'         => 'matrixBlockColors',
+				'instructions' => Craft::t('Add background colors to your Neo block types'),
+				'id'           => 'neoBlockColors',
+				'name'         => 'neoBlockColors',
 				'cols'         => array(
 					'blockType' => array(
 						'heading' => Craft::t('Block Type Handle'),
@@ -81,26 +81,26 @@ class MatrixColorsPlugin extends BasePlugin
 						'class'   => 'code',
 					),
 				),
-				'rows' => $this->_matrixBlockColors,
+				'rows' => $this->_NeoBlockColors,
 				'addRowLabel'  => Craft::t('Add a block type color'),
 			)
 		));
 		// Settings JS
-		craft()->templates->includeJsResource('matrixcolors/js/settings.js');
+		craft()->templates->includeJsResource('neocolors/js/settings.js');
 		// Output settings template
-		return craft()->templates->render('matrixcolors/_settings', array(
-			'matrixBlockColorsTable' => TemplateHelper::getRaw($matrixBlockColorsTable),
+		return craft()->templates->render('neocolors/_settings', array(
+			'neoBlockColorsTable' => TemplateHelper::getRaw($neoBlockColorsTable),
 		));
 	}
 
 	private function _colorBlocks()
 	{
-		$this->_matrixBlockColors = $this->getSettings()->matrixBlockColors;
+		$this->_neoBlockColors = $this->getSettings()->neoBlockColors;
 		$css = '';
 		$colorList = array();
 		// Loop through block colors
-		if ($this->_matrixBlockColors) {
-			foreach ($this->_matrixBlockColors as $row) {
+		if ($this->_neoBlockColors) {
+			foreach ($this->_neoBlockColors as $row) {
 				// Set color
 				$color = $row['backgroundColor'];
 				// Split comma-separated strings
@@ -125,7 +125,7 @@ class MatrixColorsPlugin extends BasePlugin
 		}
 		// Load JS
 		craft()->templates->includeJs('var colorList = '.json_encode($colorList).';');
-		craft()->templates->includeJsResource('matrixcolors/js/matrixcolors.js');
+		craft()->templates->includeJsResource('neocolors/js/Neocolors.js');
 	}
 
 }

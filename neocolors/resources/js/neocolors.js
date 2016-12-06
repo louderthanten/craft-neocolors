@@ -1,10 +1,10 @@
 // ==================================================================== //
 // BEHAVIOR
 
-// Find all matrix blocks, add specified background color
-function colorizeMatrixBlocks() {
+// Find all Neo blocks, add specified background color
+function colorizeNeoBlocks() {
 	var blockType;
-	$('.matrixblock').each(function () {
+	$('.neoblock').each(function () {
 		blockType = $(this).find('input[type="hidden"][name*="][type]"]').val();
 		// If block type is in the color list
 		if (-1 < colorList.indexOf(blockType)) {
@@ -14,15 +14,15 @@ function colorizeMatrixBlocks() {
 	});
 }
 
-// Find buttons related to Matrix, update background color
-function colorizeMatrixButtons() {
+// Find buttons related to Neo, update background color
+function colorizeNeoButtons() {
 	for (var i in colorList) {
-		$('.matrix').find('.btn[data-type="'+colorList[i]+'"]').addClass('mc-gradient-'+colorList[i]);
+		$('.neo').find('.btn[data-type="'+colorList[i]+'"]').addClass('mc-gradient-'+colorList[i]);
 	}
 }
 
-// Find list items in menus related to Matrix, update background color
-function colorizeMatrixMenus() {
+// Find list items in menus related to Neo, update background color
+function colorizeNeoMenus() {
 	for (var i in colorList) {
 		$('.menu').find('a[data-type="'+colorList[i]+'"]').addClass('mc-solid-'+colorList[i]);
 	}
@@ -30,9 +30,9 @@ function colorizeMatrixMenus() {
 
 // Colorize all components
 function colorizeAll() {
-	colorizeMatrixBlocks();
-	colorizeMatrixButtons();
-	colorizeMatrixMenus();
+	colorizeNeoBlocks();
+	colorizeNeoButtons();
+	colorizeNeoMenus();
 }
 
 // Refresh colorization over a timed period
@@ -55,15 +55,15 @@ $(function () {
 	colorizeAll();
 	// Colorize existing menus
 	var observer = new MutationObserver(function() {
-		colorizeMatrixMenus();
+		colorizeNeoMenus();
 	});
 	observer.observe(document.body, {childList: true});
 });
 
 // Listen for new blocks
-$(document).on('click', '.matrix .btn, .menu ul li a', function () {
-	colorizeMatrixBlocks();
-	colorizeMatrixMenus();
+$(document).on('click', '.neo .btn, .menu ul li a', function () {
+	colorizeNeoBlocks();
+	colorizeNeoMenus();
 });
 
 // Listen for changed entry type

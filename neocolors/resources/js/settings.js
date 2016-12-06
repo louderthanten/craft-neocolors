@@ -1,5 +1,5 @@
 
-var textareas = '#settings-matrixBlockColors td:nth-child(2) textarea';
+var textareas = '#settings-neoBlockColors td:nth-child(2) textarea';
 
 // On load, colorize cells
 $(function () {
